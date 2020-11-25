@@ -1,0 +1,25 @@
+{
+  "name": "seamless-cloud",
+  "version": "1.0.0",
+  "description": "JavaScript client for Seamless.cloud (web and node)",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jasmine __tests__"
+  },
+  "keywords": [
+    "Seamless",
+    "Seamless.cloud",
+    "Seamless",
+    "cloud",
+    "database",
+    "query"
+  ],
+  "author": "Vance Lucas <vance@vancelucas.com>",
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "deepmerge": "^4.2.2",
+    "node-fetch": "^2.6.1",
+    "querystringify": "^2.2.0",
+    "sql-template-strings": "^2.2.2"
+  }
+}
