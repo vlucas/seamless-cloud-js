@@ -1,0 +1,4 @@
+{
+  "spec_dir": "__tests__",
+  "spec_files": ["**/*test.ts"]
+}

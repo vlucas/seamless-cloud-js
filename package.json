@@ -4,7 +4,10 @@
   "description": "JavaScript client for Seamless.cloud (web and node)",
   "main": "src/index.js",
   "scripts": {
-    "test": "jasmine __tests__"
+    "build": "tsc",
+    "start": "node .",
+    "dev": "tsc -w & nodemon .",
+    "test": "ts-node node_modules/jasmine/bin/jasmine --config=jasmine.json"
   },
   "keywords": [
     "Seamless",
@@ -21,5 +24,20 @@
     "node-fetch": "^2.6.1",
     "querystringify": "^2.2.0",
     "sql-template-strings": "^2.2.2"
+  },
+  "devDependencies": {
+    "@types/jasmine": "^3.7.4",
+    "@types/node-fetch": "^2.5.10",
+    "@types/querystringify": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.24.0",
+    "@typescript-eslint/parser": "^4.24.0",
+    "eslint": "^7.27.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "jasmine": "^3.7.0",
+    "nock": "^13.1.0",
+    "prettier": "^2.3.0",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.2.4"
   }
 }
