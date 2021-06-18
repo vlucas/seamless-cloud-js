@@ -22,8 +22,7 @@
   "dependencies": {
     "deepmerge": "^4.2.2",
     "node-fetch": "^2.6.1",
-    "querystringify": "^2.2.0",
-    "sql-template-strings": "^2.2.2"
+    "querystringify": "^2.2.0"
   },
   "devDependencies": {
     "@types/jasmine": "^3.7.4",

@@ -5,7 +5,7 @@ describe('sql tagged template literal', () => {
     const name = 'two';
     const parsed = sql`SELECT * from test`;
 
-    expect(parsed.querySql).not.toContain('$1');
+    expect(parsed.querySql).not.toContain('${1}');
     expect(Object.keys(parsed.queryVars).length).toEqual(0);
   });
 
@@ -13,7 +13,7 @@ describe('sql tagged template literal', () => {
     const name = 'two';
     const parsed = sql`SELECT * from test WHERE "name" = ${name}`;
 
-    expect(parsed.querySql).toContain('$1');
+    expect(parsed.querySql).toContain('${1}');
     expect(parsed.queryVars['1']).toEqual(name);
   });
 });

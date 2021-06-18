@@ -9,7 +9,7 @@ export function sql(strings: TemplateStringsArray, ...values: any[]) {
 
   for (index = 0; index < values.length; index++) {
     const valueNumber: number = index + 1;
-    const valuePlaceholder = `$${valueNumber}`;
+    const valuePlaceholder = '${' + valueNumber + '}';
     const value = values[index];
 
     queryVars[valueNumber] = value;
