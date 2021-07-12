@@ -1,12 +1,16 @@
 import nock from 'nock';
-import { createNodeClient, sql } from '../src/node/index';
+import fetch from 'node-fetch';
+import { SeamlessClient, sql } from '../src/index';
 
 describe('Server Side Queries', () => {
-  const client = createNodeClient({
-    account: 'vlucas',
-    project: 'seamless-cloud-js',
-    apiKey: 'test-api-key-here',
-  });
+  const client = new SeamlessClient(
+    {
+      account: 'vlucas',
+      project: 'seamless-cloud-js',
+      apiKey: 'test-api-key-here',
+    },
+    fetch
+  );
 
   it('should run a basic query', async () => {
     const mock = nock('https://us-east-2.sqlapi.seamless.cloud')
