@@ -8,6 +8,7 @@ export type SeamlessClientConfig = {
   apiKey: string;
   project: string;
   region?: string;
+  debug?: boolean;
 };
 
 export type SeamlessQuery = {
@@ -18,12 +19,16 @@ export type SeamlessQuery = {
 export interface ISeamlessClient {
   cfg: SeamlessClientConfig;
   fetchFn: any;
+  debug: boolean;
 }
 
 export class SeamlessClient implements ISeamlessClient {
+  debug: boolean;
+
   constructor(public cfg: SeamlessClientConfig, public fetchFn: any) {
     this.cfg = cfg;
     this.fetchFn = fetchFn;
+    this.debug = cfg.debug || false;
 
     if (!this.cfg.region) {
       this.cfg.region = 'us-east-2';
@@ -37,14 +42,19 @@ export class SeamlessClient implements ISeamlessClient {
   query(queryKey: string, queryObject: SeamlessQuery) {
     const { querySql, queryVars } = queryObject;
     const seamlessUrl = this.getBaseUrl();
-
-    return fetchJSON(this.fetchFn, 'POST', seamlessUrl, {
+    const queryParams = {
       account: this.cfg.account,
       apiKey: this.cfg.apiKey,
       project: this.cfg.project,
       queryKey,
       querySql,
       queryVars,
-    });
+    };
+
+    if (this.debug) {
+      console.log('[seamless-cloud query]: ', seamlessUrl, queryParams);
+    }
+
+    return fetchJSON(this.fetchFn, 'POST', seamlessUrl, queryParams);
   }
 }
