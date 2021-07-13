@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "build": "tsc",
+    "prepack": "npm run build",
     "start": "node .",
     "dev": "tsc -w & nodemon .",
     "test": "ts-node node_modules/jasmine/bin/jasmine --config=jasmine.json"
