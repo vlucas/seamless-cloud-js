@@ -16,6 +16,19 @@ export type SeamlessQuery = {
   queryVars: { [key: string]: any };
 };
 
+export type SeamlessResponse = {
+  meta: {
+    success: boolean;
+    statusCode: number;
+    dtResponse: string;
+  };
+  data: {
+    results?: any[];
+    rowCount?: number;
+    timeMs?: number;
+  };
+};
+
 export interface ISeamlessClient {
   cfg: SeamlessClientConfig;
   fetchFn: any;
@@ -39,7 +52,7 @@ export class SeamlessClient implements ISeamlessClient {
     return `https://${this.cfg.region}.sqlapi.seamless.cloud/sqlapi`;
   }
 
-  query(queryKey: string, queryObject: SeamlessQuery) {
+  async query(queryKey: string, queryObject: SeamlessQuery): Promise<SeamlessResponse> {
     const { querySql, queryVars } = queryObject;
     const seamlessUrl = this.getBaseUrl();
     const queryParams = {
@@ -55,6 +68,13 @@ export class SeamlessClient implements ISeamlessClient {
       console.log('[seamless-cloud query]: ', seamlessUrl, queryParams);
     }
 
-    return fetchJSON(this.fetchFn, 'POST', seamlessUrl, queryParams);
+    const results = await fetchJSON(this.fetchFn, 'POST', seamlessUrl, queryParams);
+
+    if (this.debug) {
+      console.log('[seamless-cloud timeMs]: ', results?.data?.timeMs);
+      console.log('[seamless-cloud rowCount]: ', results?.data?.rowCount);
+    }
+
+    return results;
   }
 }
