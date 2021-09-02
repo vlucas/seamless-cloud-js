@@ -16,7 +16,7 @@ export type SeamlessQuery = {
   queryVars: { [key: string]: any };
 };
 
-export type SeamlessResponse = {
+export type SeamlessQueryResult = {
   meta: {
     success: boolean;
     statusCode: number;
@@ -52,7 +52,7 @@ export class SeamlessClient implements ISeamlessClient {
     return `https://${this.cfg.region}.sqlapi.seamless.cloud/sqlapi`;
   }
 
-  async query(queryKey: string, queryObject: SeamlessQuery): Promise<SeamlessResponse> {
+  async query(queryKey: string, queryObject: SeamlessQuery): Promise<SeamlessQueryResult> {
     const { querySql, queryVars } = queryObject;
     const seamlessUrl = this.getBaseUrl();
     const queryParams = {
