@@ -34,6 +34,7 @@ describe('Server Side Queries', () => {
 
     const result = await client.query('__test_select_time__', sql`SELECT now() AS time_now`);
 
+    // @ts-ignore
     expect(result.data.results[0].time).not.toBeNull();
   });
 
@@ -65,6 +66,7 @@ describe('Server Side Queries', () => {
       sql`SELECT * from test WHERE "name" = ${name}`
     );
 
+    // @ts-ignore
     expect(result.data.results[0].name).toEqual(name);
   });
 });

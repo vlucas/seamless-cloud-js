@@ -19,7 +19,15 @@ export function sql(strings: TemplateStringsArray, ...values: any[]) {
   querySql += strings[index];
 
   return {
-    querySql,
+    querySql: sqlFormat(querySql),
     queryVars,
   };
+}
+
+/**
+ * Format SQL string to remove all extra whitespace and linebreaks, etc. that are NOT inside quotes
+ * Standardizes the SQL string for matching, logging, and hashing.
+ */
+export function sqlFormat(sql: string): string {
+  return sql.replace(/\s+(?=(?:[^\'"]*[\'"][^\'"]*[\'"])*[^\'"]*$)/g, ' ').trim();
 }

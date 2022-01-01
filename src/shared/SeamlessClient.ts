@@ -68,11 +68,14 @@ export class SeamlessClient implements ISeamlessClient {
       console.log('[seamless-cloud query]: ', seamlessUrl, queryParams);
     }
 
+    const beforeQueryMs = Date.now();
     const results = await fetchJSON(this.fetchFn, 'POST', seamlessUrl, queryParams);
+    const afterQueryMs = Date.now();
 
     if (this.debug) {
       console.log('[seamless-cloud timeMs]: ', results?.data?.timeMs);
       console.log('[seamless-cloud rowCount]: ', results?.data?.rowCount);
+      console.log('[seamless-cloud responseTimeMs]: ', afterQueryMs - beforeQueryMs);
     }
 
     return results;
