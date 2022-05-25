@@ -65,7 +65,8 @@ export class SeamlessClient implements ISeamlessClient {
     };
 
     if (this.debug) {
-      console.log('[seamless-cloud query]: ', seamlessUrl, queryParams);
+      const { apiKey, ...logParams } = queryParams; // Don't log out apiKey
+      console.log('[seamless-cloud query]: ', seamlessUrl, logParams);
     }
 
     const beforeQueryMs = Date.now();
