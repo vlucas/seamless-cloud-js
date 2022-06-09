@@ -52,6 +52,47 @@ export class SeamlessClient implements ISeamlessClient {
     return `https://${this.cfg.region}.sqlapi.seamless.cloud/sqlapi`;
   }
 
+  /**
+   * Find and return a single row. No result throws Error with optional custom message.
+   */
+  async findOneOrThrow(queryKey: string, query: SeamlessQuery, errorMsg?: string): Promise<any> {
+    const response = await this.query(queryKey, query);
+    const rows = response?.data?.results;
+
+    if (!rows || rows.length === 0) {
+      throw new Error(errorMsg || 'Record not found');
+    }
+
+    return rows[0];
+  }
+
+  /**
+   * Find and return a single row. No result returns boolean false.
+   */
+  async findOne(queryKey: string, query: SeamlessQuery): Promise<any | boolean> {
+    const response = await this.query(queryKey, query);
+    const rows = response?.data?.results;
+
+    if (!rows || rows.length === 0) {
+      return false;
+    }
+
+    return rows[0];
+  }
+
+  /**
+   * Find many rows (Always returns an array. No results = empty array)
+   */
+  async findMany(queryKey: string, query: SeamlessQuery): Promise<Array<any>> {
+    const response = await this.query(queryKey, query);
+    const rows = response?.data?.results;
+
+    return rows || [];
+  }
+
+  /**
+   * Run SQL Query
+   */
   async query(queryKey: string, queryObject: SeamlessQuery): Promise<SeamlessQueryResult> {
     const { querySql, queryVars } = queryObject;
     const seamlessUrl = this.getBaseUrl();
