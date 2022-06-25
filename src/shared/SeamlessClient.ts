@@ -13,7 +13,7 @@ export type SeamlessClientConfig = {
 
 export type SeamlessQuery = {
   querySql: string;
-  queryVars: { [key: string]: any };
+  queryVars?: { [key: string]: any };
 };
 
 export type SeamlessQueryResult = {
